@@ -20,15 +20,10 @@ namespace BITServicesWebAppv1._1
 
                 if (Session["Type"] == null || Session["Type"].ToString() != "Client")
                 {
-                    // Response.Write("<script> alert('you are on the wrong page, will redirect to login') </script>");
                     Response.Redirect("Login.aspx");
                 }
                 else
                 {
-
-                    //this page is loaded when a customer logs intot he system using the coorect username and paassword 
-                    //then we may want the sign up and user login button to be invisible and instead we will show new booking, logout and welcome link
-
                     LinkButton lnkBooking = (LinkButton)Master.FindControl("lbtnNewBooking");
                     lnkBooking.Visible = true;
                     LinkButton lnkUserLogin = (LinkButton)Master.FindControl("lbtnLogin");
@@ -48,8 +43,8 @@ namespace BITServicesWebAppv1._1
             ddlSkill.DataSource = helper.ExecuteSQL(sql);
             ddlSkill.DataBind();
             ddlSkill.DataTextField = "skillname"; //$$_what the user sees e.g skill name
-            //you normally want your users to see the skill name and your progrma to consider their respective skill id that is why DataTextField should be skill name 
-            //Datavalue filed should be skillid so when you use selected value properrty of the dropdownlist you get the skillid no the skillname
+            //you normally want your users to see the skill name and your program to consider their respective skill id that is why DataTextField should be skill name 
+            //Datavalue field should be skillid so when you use selected value property of the dropdownlist you get the skillid no the skillname
             ddlSkill.DataValueField = "skillname";  //skillid 
             ddlSkill.DataBind();
 
@@ -71,7 +66,7 @@ namespace BITServicesWebAppv1._1
 
                                     </ asp:DropDownList >*/
         }
-        /*(userStory)US: As a customer I should be bale to key in my requirements for booking a 
+        /*(userStory)US: As a client I should be able to key in my requirements for booking a 
          * new lesson and be able to search for all sessions available and be able to work out a way 
          * to select one of them so that I can book a lesson online rather than calling or going to 
          * the office physically*/
@@ -80,7 +75,7 @@ namespace BITServicesWebAppv1._1
 
             //this is where we need to retirvce the data from the dartabase for all the available 
             //sessions based on starttime, data and suburb
-            //1.StartTime is in Timeslot, date is in availability abd suburb is in preferred suburb
+            //1.StartTime is in Timeslot, date is in availability and suburb is in preferred suburb
             if(calBookDate.SelectedDate == null || ddlJobStartTime.SelectedValue == ""
                 || ddlJobEndTime.SelectedValue == ""
                 || txtSuburb.Text == "")
@@ -90,22 +85,18 @@ namespace BITServicesWebAppv1._1
             else
             {
                 //First we tested all our code as code behind and then
-                //we used Extract Class Refactoring strategy to encapsulate the query to a separate 
-                //class
+                //we used Extract Class Refactoring strategy to encapsulate the query to a separate class
 
-                //????DataTable -yes declared up top
-                //$$$$$$$$$$$$$$$New  Booking and re-booking------FOR BIT----Here it will be start time, end time skills parameters
+                //??DataTable -yes declared up top
+                //$$$New  Booking and re-booking------FOR BIT----Here it will be start time, end time skills parameters
                 availableSessions = AvailableSessions.GetAllAvailableSessions
                     (calBookDate.SelectedDate, ddlJobStartTime.SelectedValue, 
                     ddlJobEndTime.SelectedValue, ddlSkill.SelectedValue);
                 gvAvailableSessions.DataSource = availableSessions;
                 //$_gvAvailableSessions id ID for GridView in NewBooking.aspx
                 gvAvailableSessions.DataBind();
-
             }
-
         }
-
 
         private void RefreshAllAvailableSessionsDataGrid(DateTime date, string jobstarttime,
             string jobendtime, string skillname)
@@ -121,8 +112,6 @@ namespace BITServicesWebAppv1._1
             ") AND a.starttime >=" + jobstarttime +
             "AND a.finishtime <=" + jobendtime +
              " AND cs.skillname =" + skillname;*/
-
-
 
 
             /*string sqlStr = "SELECT t.timeslotid, t.starttime, a.availabilityid, " +
@@ -146,21 +135,14 @@ namespace BITServicesWebAppv1._1
             //$_gvAvailableSessions id ID for GridView in NewBooking.aspx
             gvAvailableSessions.DataBind();
 
-            
         }
-
-
-
-
-
-
 
         protected void gvAvailableSessions_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if(e.CommandName == "Select")
             {
-                //then this row should be confirmed as a booked session for the customer
-                //whose ID is stored in Session Variable Session["CustomerID"]
+                //then this row should be confirmed as a booked session for the client
+                //whose ID is stored in Session Variable Session["ClientID"]
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
                 GridViewRow row = gvAvailableSessions.Rows[rowIndex];
 
@@ -178,9 +160,9 @@ namespace BITServicesWebAppv1._1
                     "'TBC', 0, '" +  ddlSkill.SelectedValue +   "')";*/
 
 
-                /*string sql = "insert into Booking(availabilityid, customerid, address, suburb, postcode, state, " +
+                /*string sql = "insert into Booking(availabilityid, clientid, address, suburb, postcode, state, " +
                     "status,kilometers) values(" + Convert.ToInt32(row.Cells[3].Text) + ", " +
-                    Convert.ToInt32(Session["CustomerID"]) + " , '" + txtAddress.Text + "' , '" + txtSuburb.Text
+                    Convert.ToInt32(Session["ClientID"]) + " , '" + txtAddress.Text + "' , '" + txtSuburb.Text
                     + "' , '" + txtPostCode.Text + "' , '" + ddlState.SelectedValue.ToString() + "' , 'booked', 0)";*/
 
 
@@ -225,9 +207,7 @@ namespace BITServicesWebAppv1._1
                 objHelper.ExecuteSQL("AddNewLocAndBooking", objParams, true);
 
 
-
-                //this query will make the driver unavailable for 
-                //another session
+                //this query will make the driver unavailable for another session
 
                 /*string sqlStr3 = "SELECT Max(locationid) FROM Location";
                 DataTable maxlocationIDNew = new DataTable();
@@ -236,8 +216,6 @@ namespace BITServicesWebAppv1._1
 
                 foreach (DataRow dr in maxlocationIDNew.Rows)
                 {
-
-
                     id1 = Convert.ToInt32(dr[0]);
                 }
 
@@ -248,12 +226,9 @@ namespace BITServicesWebAppv1._1
 
                 foreach (DataRow dr in maxJobBookingIDNew.Rows)
                 {
-
-
                     id2 = Convert.ToInt32(dr[0]);
                 }
                     //int id2 = Convert.ToInt32(maxJobBookingIDNew.Rows[0][0]);
-
 
                 string sqlStr5 = "insert into JobBooking(locationid) values(" + id1 + ") " +
                     "where jobbookingid = "  + id2;
@@ -262,10 +237,11 @@ namespace BITServicesWebAppv1._1
                 //$$$oriogional code
                 //RefreshAllAvailableSessionsDataGrid(calBookDate.SelectedDate, ddlJobStartTime.SelectedValue,
                 //ddlJobEndTime.SelectedValue, ddlSkill.SelectedValue);
+
                 Response.Redirect("currentbookings.aspx");
+
             }
         }
-
             //only date and string require single quotations in sql
     }
 }

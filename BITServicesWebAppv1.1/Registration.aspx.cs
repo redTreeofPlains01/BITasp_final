@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using BITServicesWebAppv1._1;
-/*Date 2/09/2020: UC103: Extend the Add Customer to DB to check if the email address used for Registration is registered with Fast Drivers*/
+/*Date 2/09/2020: UC103: Extend the Add Client to DB to check if the email address used for Registration is registered with Fds*/
 
 namespace BITServicesWebAppv1._1
 {
@@ -48,8 +48,6 @@ namespace BITServicesWebAppv1._1
             {
                 Response.Write("Could not Sign up the Client !!!");
             }
-
-
         }
     }
 }

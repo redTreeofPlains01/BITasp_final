@@ -12,13 +12,11 @@ namespace BITServicesWebAppv1._1
         ////Contractor Landing Page
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)//!Ispostback is  a condition that you instrucitng  your page to loaded 
-                //with the same data if a button on the page is clicked. ?Usually a button redirects
-                //to another page after connecting to server
+            if (!IsPostBack)
             {
                 if (Session["Type"] == null || Session["Type"].ToString() != "Contractor")
                 {
-                    // Response.Write("<script> alert('you are on the wrong page, will redirect to login') </script>");
+                   
                     Response.Redirect("Login.aspx");
                 }
                 else
@@ -31,7 +29,6 @@ namespace BITServicesWebAppv1._1
                     lnkWelcome.Visible = true;
                     LinkButton lnkLogout = (LinkButton)Master.FindControl("lbtnLogout");
                     lnkLogout.Visible = true;
-                    //this is where the current bookings should load up
 
                     int contractorId = Convert.ToInt32(Session["ContractorID"].ToString());
                     string sqlStr = "select jb.jobbookingid, jb.jobBookingDate, jb.jobstarttime, " +
@@ -45,7 +42,6 @@ namespace BITServicesWebAppv1._1
                     RefreshBookedDataGrid();
                     RefreshAcceptedDataGrid(); ;
                 }
-                //Response.Write("Session id : "+ Session["InstructorID"].ToString());
             }
         }
 
@@ -70,7 +66,6 @@ namespace BITServicesWebAppv1._1
             gvBookedSessions.DataBind();
         }
 
-
         private void RefreshAcceptedDataGrid()
         {
             int contractorId = Convert.ToInt32(Session["ContractorID"].ToString());
@@ -79,7 +74,6 @@ namespace BITServicesWebAppv1._1
                         "jb.skillname from location l, JobBooking jb " +
                         "where jb.locationid = l.locationid and jb.contractorid = " + contractorId
                         + " and jb.status = 'Confirmed'";
-
 
             /*string sqlStr = "select jb.jobbookingid, a.availableDate, t.starttime,  " +
                " jb.jobaddress, jb.jobsuburb, jb.jobpostcode, jb.state, jb.status from availability a, " +
@@ -91,7 +85,6 @@ namespace BITServicesWebAppv1._1
             gvAcceptedSessions.DataSource = objhelper.ExecuteSQL(sqlStr);
             gvAcceptedSessions.DataBind();
         }
-
 
         protected void gvAcceptedSessions_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -116,13 +109,7 @@ namespace BITServicesWebAppv1._1
                                                    //session
                 RefreshAcceptedDataGrid();
             }
-
-
         }
-
-
-
-
 
 
         protected void gvBookedSessions_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -131,26 +118,20 @@ namespace BITServicesWebAppv1._1
             {
                 if (e.CommandName == "Accept")
                 {
-
                     int rowIndex = Convert.ToInt32(e.CommandArgument);
                     GridViewRow row = gvBookedSessions.Rows[rowIndex];
-
-
 
                     string updatesql = "update JobBooking set status = 'Confirmed' where jobbookingid = "
                         + Convert.ToInt32(row.Cells[2].Text);
                     SQLHelper helper = new SQLHelper();
-                    helper.ExecuteNonQuery(updatesql); //this query will make the driver unavailable for another 
-                                                       //session
+                    helper.ExecuteNonQuery(updatesql); //this query will make the driver unavailable for another session
                     RefreshBookedDataGrid();
                     RefreshAcceptedDataGrid();
                 }
                 else if (e.CommandName == "Reject")
                 {
-
                     int rowIndex = Convert.ToInt32(e.CommandArgument);
                     GridViewRow row = gvBookedSessions.Rows[rowIndex];
-
 
                     string updatesql = "update JobBooking set status = 'Rejected' where jobbookingid = "
                         + Convert.ToInt32(row.Cells[2].Text);
@@ -168,10 +149,7 @@ namespace BITServicesWebAppv1._1
                     
                     //My assumptionUS : As a staff I should be able to see all the rejected session that I can rebook them again with other driver making sure that the drivers that come up with my search do not include the drivers who has rejected that session earlier so that I can provide better booking management
                 }
-
-
             }
-
         }
     }
 }

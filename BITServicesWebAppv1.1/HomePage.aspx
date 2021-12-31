@@ -4,7 +4,6 @@
 </asp:Content>
 
 
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
@@ -22,7 +21,6 @@
         <img src="Images/bar-img.jpg" class="center-block"/>
         </div>
     </section>
-
 
 
     <section>
@@ -104,9 +102,7 @@
           </center>
         </div>
 
-        
-
-
+  
       </div>
     </div>
     </section>

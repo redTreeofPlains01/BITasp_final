@@ -21,7 +21,6 @@ namespace BITServicesWebAppv1._1
         public string State { get; set; }
 
 
-
         public string Password { get; set; }
         private SQLHelper _db;
 

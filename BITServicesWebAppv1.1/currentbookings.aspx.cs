@@ -10,24 +10,16 @@ namespace BITServicesWebAppv1._1
     //Client Landing Page
     public partial class currentbookings : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)//!Ispostback is  a condition that you instrucitng  your page to loaded 
-                            //with the same data if a button on the page is clicked. ?Usually a button redirects
-                            //to another page after connecting to server
+            if (!IsPostBack)
             {
                 if (Session["Type"] == null || Session["Type"].ToString() != "Client")
                 {
-                    // Response.Write("<script> alert('you are on the wrong page, will redirect to login') </script>");
                     Response.Redirect("Login.aspx");
                 }
                 else
                 {
-
-                    //this page is loaded when a customer logs intot he system using the coorect username and paassword 
-                    //then we may want the sign up and user login button to be invisible and instead we will show new booking, logout and welcome link
-
                     LinkButton lnkBooking = (LinkButton)Master.FindControl("lbtnNewBooking");
                     lnkBooking.Visible = true;
                     LinkButton lnkUserLogin = (LinkButton)Master.FindControl("lbtnLogin");
@@ -62,13 +54,8 @@ namespace BITServicesWebAppv1._1
                     gvCurrentBookings.DataSource = objHelper.ExecuteSQL(sqlStr);
                     gvCurrentBookings.DataBind();
                     
-
-
-
-
                 }
             }
         }
-
     }
 }

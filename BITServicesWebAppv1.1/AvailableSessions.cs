@@ -9,20 +9,16 @@ namespace BITServicesWebAppv1._1
 {
     public class AvailableSessions
     {
-
         public  AvailableSessions()
             {
 
             }
 
-     
         public static DataTable GetAllAvailableSessions(DateTime date, string desiredstarttime, 
             string desiredendtime, string skillname)
-
         {
             //string sqlAvailSession = "AllAvailableContrSessions(@desireddate,@desiredstartime," +
             //   "@desiredendTime,@skillname)";
-
 
             //SQLHelper objHelper = new SQLHelper("BS");
             SQLHelper objHelper = new SQLHelper();
@@ -36,8 +32,6 @@ namespace BITServicesWebAppv1._1
             objParams[3] = new SqlParameter("@skillname", DbType.String);
             objParams[3].Value = skillname;
 
-
-            
             return objHelper.ExecuteSQL("AllAvailableContrSessions", objParams, true);
 
 
@@ -54,10 +48,6 @@ namespace BITServicesWebAppv1._1
 
             //       + time + "' AND ps.suburb = '" + suburb + "' and a.status = 'Available'";
 
-
         }
-    
-
     }
-
 }

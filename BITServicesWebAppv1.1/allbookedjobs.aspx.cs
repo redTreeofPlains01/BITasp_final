@@ -68,7 +68,6 @@ namespace BITServicesWebAppv1._1
             SQLHelper objhelper = new SQLHelper();
             gvCompletedJobBookings.DataSource = objhelper.ExecuteSQL(sqlCompleted);
             gvCompletedJobBookings.DataBind();
-
         }
         private void LoadRejectedJobBookings()
         {
@@ -81,7 +80,6 @@ namespace BITServicesWebAppv1._1
                 "and co.contractorid = jb.contractorid " +
                 "and cl.clientid = jb.clientid " +
                 "and jb.status='Rejected'";
-
 
             SQLHelper objhelper = new SQLHelper();
             gvRejectedJobBookings.DataSource = objhelper.ExecuteSQL(sqlRejected);

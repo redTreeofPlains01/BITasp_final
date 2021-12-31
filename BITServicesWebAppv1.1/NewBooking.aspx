@@ -174,7 +174,11 @@
                             </div>
                         <div class="row">
                             <div class="col-12">
-                                <!--grid for all avail sessions, autogenerateslectbutton( a property of Gridview(of many suto properties)-is set to true so that every row will have a column added to the grid that has an instance of button when we do the code behind we code for thsi bitoon to get the reference of which button got clicked and once we have the reference we can finalise the booking for the customer with the driver detail-->
+                                <!--grid for all avail sessions, autogenerateslectbutton( a property of Gridview(of many suto properties)-
+                                    is set to true so that every row will have a column added to the grid that has an instance 
+                                    of button when we do the code behind we code for thsi bitoon to get the reference of which 
+                                    button got clicked and once we have the reference we can finalise the booking for the client 
+                                    with the driver detail-->
                                 <!--OnRowCommand is like click event method for confirm buttom -->
                                 <asp:GridView ID="gvAvailableSessions" CssClass="table table-striped table-ordered" runat="server" OnRowCommand="gvAvailableSessions_RowCommand" >
                                     
